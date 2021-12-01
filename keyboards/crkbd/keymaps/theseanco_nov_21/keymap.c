@@ -141,6 +141,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #define L_RAISE 4
 #define L_ADJUST 8
 
+/*
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
@@ -161,8 +162,9 @@ void oled_render_layer_state(void) {
             break;
     }
 }
+*/
 
-
+/*
 char keylog_str[24] = {};
 
 const char code_to_name[60] = {
@@ -190,9 +192,10 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 void oled_render_keylog(void) {
     oled_write(keylog_str, false);
 }
+*/
 
+/*
 void render_bootmagic_status(bool status) {
-    /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
@@ -205,9 +208,9 @@ void render_bootmagic_status(bool status) {
         oled_write_ln_P(logo[1][1], false);
     }
 }
+*/
 
 // Original corne logo rendering.
-/*
 void oled_render_logo(void) {
     static const char PROGMEM crkbd_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -216,7 +219,6 @@ void oled_render_logo(void) {
         0};
     oled_write_P(crkbd_logo, false);
 }
-*/
 
 // BONGO CAT STARTS HERE
 //
@@ -240,9 +242,9 @@ void oled_render_logo(void) {
 #    define TAP_FRAMES 2
 #    define TAP_SPEED 40  // above this wpm value typing animation to trigger
 
-#    define ANIM_FRAME_DURATION 200  // how long each frame lasts in ms
+#    define ANIM_FRAME_DURATION 100  // how long each frame lasts in ms
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
-#    define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
+#    define ANIM_SIZE 636// number of bytes in array, minimize for adequate firmware size, max is 1024
 
 uint32_t anim_timer         = 0;
 uint32_t anim_sleep         = 0;
@@ -337,22 +339,25 @@ static void render_anim(void) {
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_keylog();
-    } else {
         //oled_render_logo();
         render_anim();  // renders pixelart
 
         oled_set_cursor(0, 0);                            // sets cursor to (row, column) using charactar spacing (5 rows on 128x32 screen, anything more will overflow back to the top)
         sprintf(wpm_str, "WPM:%03d", get_current_wpm());  // edit the string to change wwhat shows up, edit %03d to change how many digits show up
         oled_write(wpm_str, false);                       // writes wpm on top left corner of string
+    } else {
+        oled_render_logo();
+        //oled_render_layer_state();
+        //oled_render_keylog();
     }
 }
 
+/*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
   return true;
 }
+*/
 #endif 
