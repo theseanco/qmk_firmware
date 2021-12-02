@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
+// Send WPM to client half
+#define SPLIT_WPM_ENABLE
+
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
     #define RGBLIGHT_ANIMATIONS
@@ -42,6 +45,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
+
+/*
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
+*/
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 // necessary for r2g, also BOOTLOADER in rules.mk
